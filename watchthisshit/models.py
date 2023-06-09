@@ -15,6 +15,17 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
     
+class Recommendation(models.Model):
+    user = models.ForeignKey(
+        User, related_name="recs", on_delete=models.DO_NOTHING
+    )
+    recipients = models.ManyToManyField(
+        User, related_name="received_recs", symmetrical=False, blank=True
+    )
+    title = models.CharField(max_length=300)
+    description = models.TextField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
 # Note: Django documentation mentions that the best place 
 # to put your signals is in a new signals.py submodule of 
 # your app. However, this requires you to make additional 
