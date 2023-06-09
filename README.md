@@ -7,7 +7,7 @@ If you want to get this running locally, you will need Python, pip, and virtuale
 
 1. Clone repository
 2. Create virtual environment (use whatever name you want as long as it Doesn't Suck)
-  `python -m venv social`
+  - `python -m venv social`
 3. Start virtual environment
   - Windows: `social\Scripts\activate`
   - Linux & OS X: `source social/Scripts/activate`
@@ -17,6 +17,6 @@ If you want to get this running locally, you will need Python, pip, and virtuale
   - `python manage.py makemigrations`
   - `python manage.py migrate`
 6. Start the server
-  `python manage.py runserver`
+  - `python manage.py runserver`
   
 Visit `127.0.0.1:8000` to see the site!
