@@ -14,32 +14,42 @@
 </div>
 
 <div class="column is-one-third">
-  <div class="block">
-    <a href="{% url 'watchthisshit:profile_list' %} ">
-        <button class="button is-dark is-outlined is-fullwidth">
-            All Profiles
-        </button>
-    </a>
-  </div>
-  <div class="block">
-      <a href="{% url 'watchthisshit:profile' request.user.profile.id %} ">
-          <button class="button is-success is-light is-outlined is-fullwidth">
-              My Profile
+  {% if user.is_authenticated %}
+    <div class="block">
+      <a href="{% url 'watchthisshit:profile_list' %} ">
+          <button class="button is-dark is-outlined is-fullwidth">
+              All Profiles
           </button>
       </a>
-  </div>
-  <div class="block">
-    <div class="block">
-        <h2 class="title is-2">Add a Rec</p>
     </div>
     <div class="block">
-      <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button is-success is-fullwidth is-medium" type-"submit">Doooo it</button>
-      </form>
+        <a href="{% url 'watchthisshit:profile' request.user.profile.id %} ">
+            <button class="button is-success is-light is-outlined is-fullwidth">
+                My Profile
+            </button>
+        </a>
     </div>
-  </div>
+    <div class="block">
+      <div class="block">
+          <h2 class="title is-2">Add a Rec</p>
+      </div>
+      <div class="block">
+        <form method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <button class="button is-success is-fullwidth is-medium" type-"submit">Doooo it</button>
+        </form>
+      </div>
+    </div>
+  {% else %}
+    <div class="block">
+      <a href="#">
+        <button class="button is-dark is-outlined is-fullwidth">
+          Login
+        </button>
+      </a>
+    </div>
+  {% endif %}
 </div>
 
 {% endblock content %}

@@ -1,0 +1,53 @@
+<!-- watchthisshit/templates/registration/login.html -->
+
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+
+<div class="column is-half is-offset-one-quarter">
+  <form method="POST" action="" class="box">
+    {% csrf_token %}
+
+    <div class="field">
+      <label for="" class="label">{{ form.username.label_tag }}</label>
+      <div class="control has-icons-left">
+        {{ form.username|add_class:'input'}}
+        {% comment %} 
+        <input type="text" placeholder="e.g. danny" class="input" required>
+        <span class="icon is-small is-left">
+          <i class="fa fa-envelope"></i>
+        </span>
+        {% endcomment %}
+      </div>
+    </div>
+    <div class="field">
+      <label for="" class="label">{{ form.password.label_tag }}</label>
+      <div class="control has-icons-left">
+        {{ form.password|add_class:'input' }}
+        {% comment %}
+        <input type="password" placeholder="*******" class="input" required>
+        <span class="icon is-small is-left">
+          <i class="fa fa-lock"></i>
+        </span>
+        {% endcomment %}
+      </div>
+    </div>
+    {% comment %}
+    <div class="field">
+      <label for="" class="checkbox">
+        <input type="checkbox">
+        Remember me
+      </label>
+    </div>
+    {% endcomment %}
+    <div class="field">
+      <button type="submit" value="Login" class="button is-success is-light is-outlined is-fullwidth">
+        Login
+      </button>
+    </div>
+  </form>
+</div>
+
+{% endblock content %}

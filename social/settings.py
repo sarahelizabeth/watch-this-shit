@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_on_heroku',
+    'widget_tweaks',
     'watchthisshit',
 ]
 
@@ -128,26 +129,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'static'
 
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Set up functionality for logging to the console
-# LOGGING = {
-#     "version": 1,
-#     "disable_existing_loggers": False,
-#     "handlers": {
-#         "console": {"class": "logging.StreamHandler"},
-#     },
-#     "loggers": {
-#         "django": {
-#             "handlers": ["console"],
-#             "level": "INFO",
-#         },
-#     }
-# }
 
-# import django_on_heroku
-# django_on_heroku.settings(locals())
+# Login redirect
 
+LOGIN_REDIRECT_URL = 'watchthisshit:dashboard'

@@ -8,7 +8,7 @@ class ProfileInline(admin.StackedInline):
 class UserAdmin(admin.ModelAdmin):
     model = User
     # Only display the "username" field
-    fields = ["username"]
+    fields = ["username", "password"]
     inlines = [ProfileInline]
 
 admin.site.unregister(User)
