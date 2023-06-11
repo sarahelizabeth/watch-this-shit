@@ -39,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_on_heroku',
-    'widget_tweaks',
     'watchthisshit',
+    'widget_tweaks',
 ]
 
 MIDDLEWARE = [
