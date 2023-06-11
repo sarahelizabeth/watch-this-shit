@@ -29,7 +29,6 @@ class Recommendation(models.Model):
     def __str__(self):
         return (
             f"{self.user} "
-            f"to {self.recipients} "
             f"({self.created_at:%y-%m-%d %H:%M}): "
             f"{self.title}"
         )

@@ -14,11 +14,32 @@
 </div>
 
 <div class="column is-one-third">
-  <form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="button is-success is-fullwidth is-medium" type-"submit">Doooo it</button>
-  </form>
+  <div class="block">
+    <a href="{% url 'watchthisshit:profile_list' %} ">
+        <button class="button is-dark is-outlined is-fullwidth">
+            All Profiles
+        </button>
+    </a>
+  </div>
+  <div class="block">
+      <a href="{% url 'watchthisshit:profile' request.user.profile.id %} ">
+          <button class="button is-success is-light is-outlined is-fullwidth">
+              My Profile
+          </button>
+      </a>
+  </div>
+  <div class="block">
+    <div class="block">
+        <h2 class="title is-2">Add a Rec</p>
+    </div>
+    <div class="block">
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="button is-success is-fullwidth is-medium" type-"submit">Doooo it</button>
+      </form>
+    </div>
+  </div>
 </div>
 
 {% endblock content %}

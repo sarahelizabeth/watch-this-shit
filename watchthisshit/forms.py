@@ -11,11 +11,15 @@ class RecForm(forms.ModelForm):
     }
   ), label="",)
   recipients = forms.ModelMultipleChoiceField(
-    queryset=Profile.objects.all(),
+    queryset=None,
     widget=forms.CheckboxSelectMultiple
   )
 
   class Meta:
     model = Recommendation
     fields = ["title", "description", "recipients"]
-    # exclude = ("user", )
+  
+  def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    current_user_id = self.initial.get('user', None)
+    self.fields["recipients"].queryset = Profile.objects.exclude(pk=current_user_id)

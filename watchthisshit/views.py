@@ -3,7 +3,7 @@ from .models import Profile, Recommendation
 from .forms import RecForm
 
 def dashboard(request):
-  all_recs = Recommendation.objects.all()
+  all_recs = Recommendation.objects.all().order_by("-created_at")
   if request.method == "POST":
     form = RecForm(request.POST or None)
     if form.is_valid():
@@ -12,7 +12,7 @@ def dashboard(request):
       rec.save()
       form.save_m2m()
       return redirect("watchthisshit:dashboard")
-  form = RecForm()
+  form = RecForm(initial={"user": request.user.id})
   return render(request, "watchthisshit/dashboard.html", {
     "all_recs": all_recs,
     "form": form

@@ -9,11 +9,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
   </head>
   <body>
-    <section class="hero is-small is-success mb-4">
-      <div class="hero-body">
-        <h1 class="title is-1">WATCH THIS SHIT YOU GUYS</h1>
-        <p class="subtitle is-4">A recommendation-based social network for People Who Don't Suck</p>
+    <a href="{% url 'watchthisshit:dashboard' %}">
+      <section class="hero is-small is-success mb-4">
+        <div class="hero-body">
+          <h1 class="title is-1">WATCH THIS SHIT YOU GUYS</h1>
+          <p class="subtitle is-4">A recommendation-based social network for People Who Don't Suck</p>
+        </div>
       </section>
+    </a>
     <div class="container">
       <div class="columns">
         {% block content %}
