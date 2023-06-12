@@ -3,13 +3,18 @@ from django.db.models.base import Model
 from .models import Profile, Recommendation
 
 class RecForm(forms.ModelForm):
-  title = forms.CharField(required=True)
+  title = forms.CharField(widget=forms.TextInput(
+    attrs={
+      "class": "mb-2 input is-success"
+    }
+  ), required=True)
   description = forms.CharField(widget=forms.widgets.Textarea(
     attrs={
       "placeholder": "You don't have to write a description, but it would be pretty cool if you did...",
-      "class": "textarea is-success is-medium"
+      "class": "mb-2 textarea is-success is-small",
+      "rows": "3"
     }
-  ), label="",)
+  ), label="")
   recipients = forms.ModelMultipleChoiceField(
     queryset=None,
     widget=forms.CheckboxSelectMultiple

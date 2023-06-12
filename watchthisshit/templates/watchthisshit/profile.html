@@ -45,29 +45,39 @@
   </div>
 
   <div class="block">
-    <h3 class="title is-4">follows:</h3>
-    <div class="content">
-      <ul>
-      {% for following in profile.follows.all %}
-        <li>
-          <a href="{% url 'watchthisshit:profile' following.id %}">{{ following }}</a>
-        </li>
+    <article class="panel is-info">
+      <p class="panel-heading">Follows</p>
+      {% for following in profile.followeds.all %}
+        {% if following.id != profile.id %}
+          <div class="panel-block">
+            <a class="panel-block" href="{% url 'watchthisshit:profile' following.id %}">
+              <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+              </span>
+              {{ following }}
+            </a>
+          </div>
+        {% endif %}
       {% endfor %}
-      </ul>
-    </div>
+    </article>
   </div>
 
   <div class="block">
-    <h3 class="title is-4">followed by:</h3>
-    <div class="content">
-      <ul>
+    <article class="panel is-info">
+      <p class="panel-heading">Followed By</p>
       {% for follower in profile.followed_by.all %}
-        <li>
-          <a href="{% url 'watchthisshit:profile' follower.id %}">{{ follower }}</a>
-        </li>
+        {% if follower.id != profile.id %}
+          <div class="panel-block">
+            <a class="panel-block" href="{% url 'watchthisshit:profile' follower.id %}">
+              <span class="panel-icon">
+                <i class="fas fa-book" aria-hidden="true"></i>
+              </span>
+              {{ follower }}
+            </a>
+          </div>
+        {% endif %}
       {% endfor %}
-      </ul>
-    </div>
+    </article>
   </div>
 </div>
 
