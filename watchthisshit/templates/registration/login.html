@@ -10,6 +10,10 @@
   <form method="POST" action="" class="box">
     {% csrf_token %}
 
+    {% if form.errors %}
+      <p>Your username and password do not match</p>
+    {% endif %}
+
     <div class="field">
       <label for="" class="label">{{ form.username.label_tag }}</label>
       <div class="control has-icons-left">

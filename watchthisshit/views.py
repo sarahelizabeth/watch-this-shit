@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Profile, Recommendation
 from .forms import RecForm
 
@@ -22,6 +23,7 @@ def profile_list(request):
   profiles = Profile.objects.exclude(user=request.user)
   return render(request, "watchthisshit/profile_list.html", {"profiles": profiles})
 
+@login_required
 def profile(request, pk):
   if not hasattr(request.user, 'profile'):
     missing_profile = Profile(user=request.user)
