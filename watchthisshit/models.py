@@ -8,6 +8,7 @@ def get_user_if_deleted():
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    description = models.CharField(max_length=256, blank=True)
     follows = models.ManyToManyField( 
         'self',
         related_name='followed_by',
@@ -26,6 +27,7 @@ def get_media_type_id():
     
 class MediaType(models.Model):
     name = models.CharField(max_length=50, unique=True)
+    icon = models.CharField(max_length=30, blank=True)
 
     def __str__(self):
         return self.name

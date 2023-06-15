@@ -5,6 +5,26 @@
 {% block content %}
 
 <div class="column is-one-half">
+  
+  <div class="tabs is-toggle is-fullwidth">
+    <ul>
+      <li class="is-active">
+        <a>
+          <span class="icon is-small"><i class="fas fa-bookmark" aria-hidden="true"></i></span>
+          <span>All</span>
+        </a>
+      </li>
+      {% for media in media_types %}
+      <li>
+        <a>
+          <span class="icon is-small"><i class="{{ media.icon }}" aria-hidden="true"></i></span>
+          <span>{{ media.name }}</span>
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+
   {% for rec in all_recs %}
   <div class="box">
     <p>{{ rec.user.username }} shared {{ rec.title }} with {{ rec.recipients.all|join:", " }}</h5>

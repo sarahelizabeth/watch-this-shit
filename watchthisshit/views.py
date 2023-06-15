@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import Profile, Recommendation
+from .models import Profile, Recommendation, MediaType
 from .forms import RecForm
 
 def dashboard(request):
   all_recs = Recommendation.objects.all().order_by("-created_at")
+  media_types = MediaType.objects.all().exclude(name__exact="Media")
   if request.method == "POST":
     form = RecForm(request.POST or None)
     if form.is_valid():
@@ -14,10 +15,12 @@ def dashboard(request):
       form.save_m2m()
       return redirect("watchthisshit:dashboard")
   form = RecForm(initial={"user": request.user.id})
-  return render(request, "watchthisshit/dashboard.html", {
+  context = {
     "all_recs": all_recs,
+    "media_types": media_types,
     "form": form
-  })
+  }
+  return render(request, "watchthisshit/dashboard.html", context)
 
 def profile_list(request):
   profiles = Profile.objects.exclude(user=request.user)
