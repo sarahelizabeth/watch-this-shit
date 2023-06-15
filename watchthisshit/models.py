@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+def get_user_if_deleted():
+    return User.objects.get_or_create(username="[user deleted]")[0]
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     follows = models.ManyToManyField( 
@@ -33,10 +36,16 @@ class Genre(models.Model):
 
     def __str__(self):
         return self.name
+    
+def get_recommendation():
+    return Recommendation.objects.get_or_create(title="[rec deleted]")[0]
+
+def get_recommendation_id():
+    return get_recommendation().id
 
 class Recommendation(models.Model):
     user = models.ForeignKey(
-        User, related_name="recs", on_delete=models.DO_NOTHING
+        User, related_name="recs", on_delete=models.SET(get_user_if_deleted)
     )
     recipients = models.ManyToManyField(
         Profile, related_name="received_recs", symmetrical=False, blank=True
@@ -57,6 +66,19 @@ class Recommendation(models.Model):
             f"({self.created_at:%y-%m-%d %H:%M}): "
             f"{self.title}"
         )
+    
+class Comment(models.Model):
+    recommendation: models.ForeignKey(
+        Recommendation, related_name="comments", on_delete=models.CASCADE
+    )
+    user = models.ForeignKey(
+        Profile, on_delete=models.CASCADE, related_name="comments"
+    )
+    text = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.text
     
 # Note: Django documentation mentions that the best place 
 # to put your signals is in a new signals.py submodule of 

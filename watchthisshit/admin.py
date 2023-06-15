@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User, Group
-from .models import Profile, Recommendation, MediaType, Genre
+from .models import Profile, Recommendation, MediaType, Genre, Comment
 
 class ProfileInline(admin.StackedInline):
     model = Profile
@@ -19,3 +19,4 @@ admin.site.unregister(Group)
 admin.site.register(Recommendation)
 admin.site.register(MediaType)
 admin.site.register(Genre)
+admin.site.register(Comment)
