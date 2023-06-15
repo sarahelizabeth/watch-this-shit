@@ -7,16 +7,74 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pompiere&display=swap" rel="stylesheet">
   </head>
+  <style>
+    #main-title { font-family: 'Pompiere', sans-serif; color: white; }
+  </style>
   <body>
-    <a href="{% url 'watchthisshit:dashboard' %}">
-      <section class="hero is-small is-success mb-4">
-        <div class="hero-body">
-          <h1 class="title is-1">WATCH THIS SHIT YOU GUYS</h1>
-          <p class="subtitle is-4">A recommendation-based social network for People Who Don't Suck</p>
+    <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="{% url 'watchthisshit:dashboard' %}">
+          <h1 class="title is-1" id="main-title">WATCH THIS SHIT, YOU GUYS</h1>
+        </a>
+    
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+    
+      <div id="mainNavBar" class="navbar-menu">
+        <div class="navbar-end">
+          <a class="navbar-item" href="{% url 'watchthisshit:dashboard' %}">
+            Dashboard
+          </a>
+    
+          {% if user.is_authenticated %}
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Profiles
+            </a>
+    
+            <div class="navbar-dropdown">
+              <a class="navbar-item" href="{% url 'watchthisshit:profile' request.user.profile.id %}">
+                My Profile
+              </a>
+              <a class="navbar-item" href="{% url 'watchthisshit:profile_list' %}">
+                All Profiles
+              </a>
+            </div>
+          </div>
+
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary">
+                <strong>Add a Rec</strong>
+              </a>
+              <a class="button is-light" href="{% url 'logout' %}">
+                Log out
+              </a>
+            </div>
+          </div>
+
+          {% else %}
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-primary" href="{% url 'login' %}">
+                <strong>Log in</strong>
+              </a>
+            </div>
+          </div>
+          {% endif %}
+
         </div>
-      </section>
-    </a>
+      </div>
+    </nav>
+
     <div class="container">
       <div class="columns">
         {% block content %}
