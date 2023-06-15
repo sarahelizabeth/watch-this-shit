@@ -15,6 +15,25 @@ class Profile(models.Model):
     def __str__(self):
         return self.user.username
     
+def get_media_type():
+    return MediaType.objects.get_or_create(name="Media")[0]
+
+def get_media_type_id():
+    return get_media_type().id
+    
+class MediaType(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    description = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.name
+
 class Recommendation(models.Model):
     user = models.ForeignKey(
         User, related_name="recs", on_delete=models.DO_NOTHING
@@ -24,6 +43,12 @@ class Recommendation(models.Model):
     )
     title = models.CharField(max_length=300)
     description = models.TextField(blank=True)
+    media_type = models.ForeignKey(
+        MediaType, on_delete=models.SET(get_media_type), default=get_media_type_id
+    )
+    genres = models.ManyToManyField(
+        Genre, related_name="genres", symmetrical=False, blank=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -11,7 +11,11 @@
     {% csrf_token %}
 
     {% if form.errors %}
-      <p>Your username and password do not match</p>
+    <article class="message is-danger">
+      <div class="message-body">
+        Your username and password do not match.
+      </div>
+    </article>
     {% endif %}
 
     <div class="field">
@@ -20,10 +24,10 @@
         {{ form.username|add_class:'input'}}
         {% comment %} 
         <input type="text" placeholder="e.g. danny" class="input" required>
+        {% endcomment %}
         <span class="icon is-small is-left">
           <i class="fa fa-envelope"></i>
         </span>
-        {% endcomment %}
       </div>
     </div>
     <div class="field">
@@ -32,10 +36,10 @@
         {{ form.password|add_class:'input' }}
         {% comment %}
         <input type="password" placeholder="*******" class="input" required>
+        {% endcomment %}
         <span class="icon is-small is-left">
           <i class="fa fa-lock"></i>
         </span>
-        {% endcomment %}
       </div>
     </div>
     {% comment %}

@@ -47,12 +47,12 @@
   <div class="block">
     <article class="panel is-info">
       <p class="panel-heading">Follows</p>
-      {% for following in profile.followeds.all %}
+      {% for following in profile.follows.all %}
         {% if following.id != profile.id %}
           <div class="panel-block">
             <a class="panel-block" href="{% url 'watchthisshit:profile' following.id %}">
               <span class="panel-icon">
-                <i class="fas fa-book" aria-hidden="true"></i>
+                <i class="fas fa-user" aria-hidden="true"></i>
               </span>
               {{ following }}
             </a>
@@ -70,7 +70,7 @@
           <div class="panel-block">
             <a class="panel-block" href="{% url 'watchthisshit:profile' follower.id %}">
               <span class="panel-icon">
-                <i class="fas fa-book" aria-hidden="true"></i>
+                <i class="fas fa-user" aria-hidden="true"></i>
               </span>
               {{ follower }}
             </a>
