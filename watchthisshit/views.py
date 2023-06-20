@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Profile, Recommendation, MediaType
 from .forms import RecForm
@@ -42,3 +42,12 @@ def profile(request, pk):
       current_user_profile.follows.remove(profile)
     current_user_profile.save()
   return render(request, "watchthisshit/profile.html", {"profile": profile})
+
+def recommendation(request, pk):
+  rec = get_object_or_404(Recommendation, pk=pk)
+  current_rec_id = rec.id
+  recent_recs = rec.user.recs.all().exclude(pk=current_rec_id).order_by("-created_at")[:5]
+  return render(request, "watchthisshit/recommendation.html", {
+    "rec": rec,
+    "recent_recs": recent_recs,
+  })

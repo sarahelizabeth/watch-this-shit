@@ -1,6 +1,11 @@
 from django import forms
-from django.db.models.base import Model
-from .models import Profile, Recommendation
+from .models import Profile, Recommendation, MediaType
+
+MEDIA_CHOICES = (
+  ("Film", "Film"),
+  ("Show", "TV Show"),
+  ("Book", "Book"),
+)
 
 class RecForm(forms.ModelForm):
   title = forms.CharField(widget=forms.TextInput(
@@ -19,10 +24,14 @@ class RecForm(forms.ModelForm):
     queryset=None,
     widget=forms.CheckboxSelectMultiple
   )
+  media_type = forms.ModelChoiceField(
+    queryset=MediaType.objects.exclude(name__exact="Media"),
+    widget=forms.RadioSelect()
+  )
 
   class Meta:
     model = Recommendation
-    fields = ["title", "description", "recipients"]
+    fields = ["title", "description", "media_type", "recipients"]
   
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
