@@ -20,20 +20,27 @@
   </div>
 
   {% for comment in rec.comments.all %}
-  <article class="media">
+  <article class="media ml-2">
+    {% comment %}
     <figure class="media-left">
       <p class="image is-64x64">
         <img src="https://bulma.io/images/placeholders/128x128.png">
       </p>
     </figure>
+    {% endcomment %}
     <div class="media-content">
       <div class="content">
         <p>
-          <strong>{{ comment.user.username }}</strong> <small>@johnsmith</small> <small>31m</small>
+          <strong>{{ comment.user }}</strong>
           <br>
-          {{ comment.text }}
+          {{ comment.body }}
         </p>
       </div>
+    </div>
+    <div class="media-right">
+      <p class="heading is-small has-text-grey-light">{{ comment.created_at }}</p>
+    </div>
+    {% comment %}
       <nav class="level is-mobile">
         <div class="level-left">
           <a class="level-item">
@@ -48,25 +55,23 @@
         </div>
       </nav>
     </div>
-    <div class="media-right">
-      <button class="delete"></button>
-    </div>
+    {% endcomment %}
   </article>
   {% endfor %}
 
-  <article id="newComment" class="media">
-    <figure class="media-left">
+  <article id="newComment" class="media ml-2">
+    {% comment %} <figure class="media-left">
       <p class="image is-64x64">
         <img src="https://bulma.io/images/placeholders/128x128.png">
       </p>
-    </figure>
+    </figure> {% endcomment %}
     <div class="media-content">
       <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="field">
           <p class="control">
-            <button class="button is-primary" type="submit">Get it</button>
+            <button class="button is-primary" type="submit">Pop off, yo</button>
           </p>
         </div>
       </form>

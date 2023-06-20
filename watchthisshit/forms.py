@@ -1,5 +1,6 @@
 from django import forms
-from .models import Profile, Recommendation, MediaType
+from django.db.models import Q
+from .models import Profile, Recommendation, MediaType, Comment
 
 MEDIA_CHOICES = (
   ("Film", "Film"),
@@ -26,7 +27,7 @@ class RecForm(forms.ModelForm):
   )
   media_type = forms.ModelChoiceField(
     queryset=MediaType.objects.exclude(name__exact="Media"),
-    widget=forms.RadioSelect()
+    widget=forms.RadioSelect(attrs={ "class": "mb-2" })
   )
 
   class Meta:
@@ -36,4 +37,16 @@ class RecForm(forms.ModelForm):
   def __init__(self, *args, **kwargs):
     super().__init__(*args, **kwargs)
     current_user_id = self.initial.get('user', None)
-    self.fields["recipients"].queryset = Profile.objects.exclude(pk=current_user_id)
+    self.fields["recipients"].queryset = Profile.objects.exclude(Q(pk=current_user_id) | Q(user_id=6))
+
+class CommentForm(forms.ModelForm):
+  body = forms.CharField(widget=forms.widgets.Textarea(
+    attrs={
+      "placeholder": "That's just, like, your opinion, man...",
+      "class": "mb-2 textarea is-success is-small",
+      "rows": "3"
+    }
+  ), label="")
+  class Meta:
+    model = Comment
+    fields = ('body',)

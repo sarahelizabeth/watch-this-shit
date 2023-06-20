@@ -40,7 +40,9 @@ class Genre(models.Model):
         return self.name
     
 def get_recommendation():
-    return Recommendation.objects.get_or_create(title="[rec deleted]")[0]
+    dummy_user = get_user_if_deleted()
+    dummy_media = get_media_type()
+    return Recommendation.objects.get_or_create(title="[rec deleted]", media_type=dummy_media, user=dummy_user)[0]
 
 def get_recommendation_id():
     return get_recommendation().id
@@ -70,17 +72,20 @@ class Recommendation(models.Model):
         )
     
 class Comment(models.Model):
-    recommendation: models.ForeignKey(
-        Recommendation, related_name="comments", on_delete=models.CASCADE
+    recommendation = models.ForeignKey(
+        Recommendation, related_name="comments", on_delete=models.SET(get_recommendation), default=get_recommendation_id
     )
     user = models.ForeignKey(
         Profile, on_delete=models.CASCADE, related_name="comments"
     )
-    text = models.TextField()
+    body = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        ordering = ('created_at',)
+
     def __str__(self):
-        return self.text
+        return "Comment by {} on {}".format(self.user, self.recommendation)
     
 # Note: Django documentation mentions that the best place 
 # to put your signals is in a new signals.py submodule of 

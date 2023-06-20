@@ -22,15 +22,29 @@
 
   <div class="content">
     {% for rec in profile.user.recs.all %}
-      <div class="box">
-        <p>
-          {{ rec.title }}
-          <span class="is-small has-text-grey-light">
-            ({{ rec.created_at }})
-          </span>
-        </p>
-        <p>{{ rec.description }}</p>
-      </div>
+    <div class="box">
+      <article class="level is-full-width is-mobile">
+        <div class="level-left">
+          <div class="level-item">
+            <div>
+              <p><strong>{{ rec.title }}</strong> shared with <strong>{{ rec.recipients.all|join:", " }}</strong></p>
+              <p class="heading is-small has-text-grey-light">({{ rec.created_at }})</p>
+            </div>
+          </div>
+        </div>
+        <div class="level-right">
+          <div class="level-item">
+            <a href="{% url "watchthisshit:recommendation" pk=rec.pk %}">
+              <button class="button is-rounded is-primary">
+                <span class="icon">
+                  <i class="fas fa-comment-dots"></i>
+                </span>
+              </button>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
     {% endfor %}
   </div>
 </div>
